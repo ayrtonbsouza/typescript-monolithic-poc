@@ -1,0 +1,60 @@
+import { BaseEntity } from '../../../@shared/domain/entities/BaseEntity';
+import { IAggregateRoot } from '../../../@shared/domain/entities/IAggregateRoot';
+import { Id } from '../../../@shared/domain/value-object/IdValueObject';
+
+type ProductProps = {
+  id?: Id;
+  name: string;
+  description: string;
+  purchasePrice: number;
+  stock: number;
+  createdAt?: Date;
+  updatedAt?: Date;
+};
+
+export class Product extends BaseEntity implements IAggregateRoot {
+  private _name: string;
+  private _description: string;
+  private _purchasePrice: number;
+  private _stock: number;
+
+  constructor(props: ProductProps) {
+    super(props.id);
+    this._name = props.name;
+    this._description = props.description;
+    this._purchasePrice = props.purchasePrice;
+    this._stock = props.stock;
+  }
+
+  get name(): string {
+    return this._name;
+  }
+
+  set name(name: string) {
+    this._name = name;
+  }
+
+  get description(): string {
+    return this._description;
+  }
+
+  set description(description: string) {
+    this._description = description;
+  }
+
+  get purchasePrice(): number {
+    return this._purchasePrice;
+  }
+
+  set purchasePrice(purchasePrice: number) {
+    this._purchasePrice = purchasePrice;
+  }
+
+  get stock(): number {
+    return this._stock;
+  }
+
+  set stock(stock: number) {
+    this._stock = stock;
+  }
+}
