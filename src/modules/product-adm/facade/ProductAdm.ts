@@ -8,16 +8,16 @@ import { IProductAdm } from './IProductAdm';
 
 export interface IUseCasesProps {
   addUseCase: IUseCase;
-  checkStockUseCase: IUseCase;
+  stockUseCase: IUseCase;
 }
 
 export class ProductAdmFacade implements IProductAdm {
   private _addUseCase: IUseCase;
-  private _checkStockUseCase: IUseCase;
+  private _stockUseCase: IUseCase;
 
   constructor(useCasesProps: IUseCasesProps) {
     this._addUseCase = useCasesProps.addUseCase;
-    this._checkStockUseCase = useCasesProps.checkStockUseCase;
+    this._stockUseCase = useCasesProps.stockUseCase;
   }
 
   addProduct(input: IAddProductFacadeInput): Promise<void> {
@@ -25,6 +25,6 @@ export class ProductAdmFacade implements IProductAdm {
   }
 
   checkStock(input: ICheckStockFacadeInput): Promise<ICheckStockFacadeOutput> {
-    throw new Error('Method not implemented.');
+    return this._stockUseCase.execute(input);
   }
 }

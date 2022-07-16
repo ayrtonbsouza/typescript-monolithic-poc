@@ -1,9 +1,6 @@
 import { Sequelize } from 'sequelize-typescript';
 import { ProductAdmFacadeFactory } from '../factories/FacadeFactory';
 import { ProductModel } from '../repositories/model/Product.model';
-import { ProductRepository } from '../repositories/ProductRepository';
-import { AddProductUseCase } from '../usecase/AddProduct/AddProduct';
-import { ProductAdmFacade } from './ProductAdm';
 
 describe('ProductAdm Facade', () => {
   let sequelize: Sequelize;
@@ -44,5 +41,23 @@ describe('ProductAdm Facade', () => {
     expect(product.description).toBe(input.description);
     expect(product.purchasePrice).toBe(input.purchasePrice);
     expect(product.stock).toBe(input.stock);
+  });
+
+  it('should be able to check product stock', async () => {
+    const productFacade = ProductAdmFacadeFactory.create();
+
+    const input = {
+      id: '1234567890',
+      name: 'Test Product',
+      description: 'Test Product Description',
+      purchasePrice: 10,
+      stock: 10,
+    };
+    await productFacade.addProduct(input);
+    const output = await productFacade.checkStock({ productId: input.id });
+
+    expect(output).toBeDefined();
+    expect(output.productId).toBe(input.id);
+    expect(output.stock).toBe(input.stock);
   });
 });

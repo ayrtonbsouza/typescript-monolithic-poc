@@ -1,4 +1,4 @@
 export interface ICheckStockFacadeOutput {
-  id: string;
+  productId: string;
   stock: number;
 }

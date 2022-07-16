@@ -1,5 +1,6 @@
 import { Id } from '../../../@shared/domain/value-object/IdValueObject';
 import { Product } from '../../domain/entities/Product';
+import { CheckStockUseCase } from './CheckStock';
 
 const product = new Product({
   id: new Id('1234567890'),
