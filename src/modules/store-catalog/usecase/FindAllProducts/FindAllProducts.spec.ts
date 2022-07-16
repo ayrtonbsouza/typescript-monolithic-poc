@@ -1,5 +1,6 @@
 import { Id } from '../../../@shared/domain/value-object/IdValueObject';
 import { Product } from '../../domain/entities/Product';
+import { FindAllProductsUseCase } from './FindAllproducts';
 
 const firstProduct = new Product({
   id: new Id('1234567890'),
@@ -31,8 +32,8 @@ describe('[Unit] FindAllProducts UseCase', () => {
 
     expect(productRepository.findAll).toHaveBeenCalled();
     expect(output.products.length).toBe(2);
-    expect(output.products[0].id).toBe(firstProduct.id);
-    expect(output.products[1].id).toBe(secondProduct.id);
+    expect(output.products[0].id).toBe(firstProduct.id.id);
+    expect(output.products[1].id).toBe(secondProduct.id.id);
     expect(output.products[0].name).toBe(firstProduct.name);
     expect(output.products[1].name).toBe(secondProduct.name);
     expect(output.products[0].description).toBe(firstProduct.description);
