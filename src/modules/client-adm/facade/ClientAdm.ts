@@ -26,6 +26,6 @@ export class ClientAdmFacade {
   async find(
     input: IInputFindClientFacadeDto
   ): Promise<IOutputFindClientFacadeDto> {
-    throw new Error('Method not implemented.');
+    return this._findUseCase.execute(input);
   }
 }

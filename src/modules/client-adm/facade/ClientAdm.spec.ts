@@ -1,8 +1,6 @@
 import { Sequelize } from 'sequelize-typescript';
-import { ClientRepository } from '../repositories/ClientRepository';
+import { ClientAdmFacadeFactory } from '../factories/FacadeFactory';
 import { ClientModel } from '../repositories/model/Client.model';
-import { AddClientUseCase } from '../usecase/AddClient/AddClient';
-import { ClientAdmFacade } from './ClientAdm';
 
 describe('[Unit] Client Adm Facade', () => {
   let sequelize: Sequelize;
@@ -23,9 +21,7 @@ describe('[Unit] Client Adm Facade', () => {
   });
 
   it('should be able to create a client', async () => {
-    const repository = new ClientRepository();
-    const addUseCase = new AddClientUseCase(repository);
-    const facade = new ClientAdmFacade({ addUseCase, findUseCase: undefined });
+    const facade = ClientAdmFacadeFactory.create();
 
     const input = {
       id: '1234567890',
@@ -42,5 +38,26 @@ describe('[Unit] Client Adm Facade', () => {
     expect(client.name).toBe(input.name);
     expect(client.email).toBe(input.email);
     expect(client.address).toBe(input.address);
+  });
+
+  it('should be able to find a client', async () => {
+    const facade = ClientAdmFacadeFactory.create();
+
+    const input = {
+      id: '1234567890',
+      name: 'John Doe',
+      email: 'johndoe@example.com',
+      address: '123 Main St',
+    };
+
+    await facade.add(input);
+
+    const output = await facade.find({ id: input.id });
+
+    expect(output).toBeDefined();
+    expect(output.id).toBe(input.id);
+    expect(output.name).toBe(input.name);
+    expect(output.email).toBe(input.email);
+    expect(output.address).toBe(input.address);
   });
 });
