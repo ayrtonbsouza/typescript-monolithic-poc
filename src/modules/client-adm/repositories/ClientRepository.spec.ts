@@ -28,6 +28,8 @@ describe('[Unit] ClientRepository', () => {
       name: 'John Doe',
       email: 'johndoe@example.com',
       address: '123 Main St',
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     const repository = new ClientRepository();
