@@ -1,3 +1,4 @@
+import { Id } from '../../../@shared/domain/value-object/IdValueObject';
 import { Client } from '../../domain/entities/Client';
 import { IClientGateway } from '../../gateway/IClient.gateway';
 import { IInputAddClientDto, IOutputAddClientDto } from './dtos';
@@ -11,6 +12,7 @@ export class AddClientUseCase {
 
   async execute(input: IInputAddClientDto): Promise<IOutputAddClientDto> {
     const props = {
+      id: new Id(input.id) || new Id(),
       name: input.name,
       email: input.email,
       address: input.address,
